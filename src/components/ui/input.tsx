@@ -1,21 +1,51 @@
-import * as React from "react"
+"use client";
 
-import { cn } from "@/lib/utils"
+// 1. Importa 'forwardRef' desde React
+import { forwardRef, useState } from "react";
+import { Eye, EyeOff } from "lucide-react";
 
-function Input({ className, type, ...props }: React.ComponentProps<"input">) {
-  return (
-    <input
-      type={type}
-      data-slot="input"
-      className={cn(
-        "file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input flex h-9 w-full min-w-0 rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
-        "focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]",
-        "aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
-        className
-      )}
-      {...props}
-    />
-  )
-}
+type Props = React.InputHTMLAttributes<HTMLInputElement> & {
+  label?: string;
+  error?: string;
+  passwordToggle?: boolean;
+};
 
-export { Input }
+// 2. Envuelve toda la definición del componente en forwardRef
+const Input = forwardRef<HTMLInputElement, Props>(
+  ({ label, error, passwordToggle, ...rest }, ref) => { // 'ref' ahora es un argumento
+    const [show, setShow] = useState(false);
+    const isPassword = rest.type === "password" && passwordToggle;
+
+    return (
+      <div className="grid gap-1.5">
+        {label && <label className="text-sm text-muted-foreground">{label}</label>}
+        <div className="relative">
+          <input
+            {...rest}
+            type={isPassword && show ? "text" : rest.type}
+            // 3. Asigna la 'ref' directamente al elemento <input>
+            ref={ref}
+            className={`w-full rounded-md border px-3 py-2 outline-none bg-white
+              ${error ? "border-red-400" : "border-input focus:ring-2 focus:ring-cyan-500/40"}`}
+          />
+          {isPassword && (
+            <button
+              type="button"
+              onClick={() => setShow(s => !s)}
+              className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+              aria-label={show ? "Ocultar" : "Mostrar"}
+            >
+              {show ? <EyeOff size={18}/> : <Eye size={18}/>}
+            </button>
+          )}
+        </div>
+        {error && <p className="text-xs text-red-600">{error}</p>}
+      </div>
+    );
+  }
+);
+
+// (Opcional pero recomendado) Ayuda a las herramientas de desarrollo de React
+Input.displayName = "Input";
+
+export default Input;

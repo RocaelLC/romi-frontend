@@ -1,6 +1,7 @@
 ﻿node_modules
 .next
-out
-.env.local
-npm-debug.log*
-.DS_Store
+dist
+.git
+Dockerfile*
+docker-compose*
+npm-debug.log
