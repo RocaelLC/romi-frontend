@@ -5,8 +5,8 @@ import { Target, Handshake, Heart, Lightbulb, Shield, Users, Globe, Zap, User } 
 export default function Page() {
     return (
         <main className="max-w-6xl mx-auto px-4 ">
-            <section className="relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen bg-gradient-to-br from-indigo-700 via-violet-600 to-blue-600">
-                <div className="mx-auto max-w-6xl px-4 py-24 text-center text-white">
+            <section className="relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen bg-gradient-romi">
+                <div className="mx-auto max-w-6xl px-4 py-24 text-center text-foreground">
                     <h1 className="text-5xl font-extrabold grid place-items-center">Transformando la Medicina <span className="text-indigo-200 text-center">del Futuro</span></h1>
                     <p className="mt-4 text-lg/7 opacity-90 mt-8 ">Somos una plataforma integral que conecta profesionales de la salud con tecnología avanzada
                         para mejorar la atención médica en todo el mundo.</p>
