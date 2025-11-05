@@ -58,7 +58,7 @@ export default function Home() {
   return (
     <main className="min-h-screen">
       <section className="relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen">
-        <div className="relative isolate overflow-hidden bg-gradient-to-br from-indigo-700 via-violet-600 to-blue-600">
+        <div className="relative isolate overflow-hidden bg-gradient-romi">
           {/* Track */}
           <div
             className="flex transition-transform duration-700 ease-in-out"
@@ -80,7 +80,7 @@ export default function Home() {
                     {s.ctaText && s.ctaHref && (
                       <Link
                         href={s.ctaHref}
-                        className="px-6 py-3 rounded-xl bg-[#00B4D8] text-white transition hover:bg-[#0096c7]"
+                        className="px-6 py-3 rounded-xl bg-primary text-primary-foreground transition hover:bg-primary/90"
                       >
                         {s.ctaText} →
                       </Link>
@@ -108,34 +108,34 @@ export default function Home() {
       </section>
 
       <section>
-            <h1 className=" text-center text-3xl font-bold text-[#023E8A] m-12">Servicios Principales</h1>
+            <h1 className=" text-center text-3xl font-bold text-primary m-12">Servicios Principales</h1>
             <p className="text-center text-base text-zinc-600 mt-2">
                Descubre nuetras soluciones innovadoras diseñadas para transformar la atención médica.
             </p>
             <section className="mt-10 grid md:grid-cols-4 gap-5 max-w-6xl mx-auto ">
-                <div className="rounded-2xl border p-6 shadow-inner mt-6 text-center">
-                    <Brain className="mx-auto w-15 h-15 text-purple-600" />
+                <div className="rounded-2xl border border-transparent bg-gradient-romi p-6 shadow-inner mt-6 text-center">
+                    <Brain className="mx-auto w-15 h-15 text-foreground" />
                     <h2 className="font-semibold text-xl mt-7">Asistente ROMI</h2>
                     <p className="text-sm text-zinc-600 mt-2">
                         IA médica avanzada para consultas y diagnósticos
                     </p>
                 </div>
                 <div className="rounded-2xl border p-6 shadow-inner mt-6 text-center">
-                    <HeartPlus className="mx-auto w-15 h-15 text-pink-600" />
+                    <HeartPlus className="mx-auto w-15 h-15 text-secondary" />
                     <h2 className="font-semibold text-xl mt-7">Telesalud</h2>
                     <p className="text-sm text-zinc-600 mt-2">
                         Consultas médicas remotas con especialistas
                     </p>
                 </div>
                 <div className="rounded-2xl border p-6 shadow-inner mt-6 text-center">
-                    <Book className="mx-auto w-15 h-15 text-blue-600" />
+                    <Book className="mx-auto w-15 h-15 text-accent" />
                     <h2 className="font-semibold text-xl mt-7">Formación Médica</h2>
                     <p className="text-sm text-zinc-600 mt-2">
                         Cursos y recursos educativos actualizados
                     </p>
                 </div>
                 <div className="rounded-2xl border p-6 shadow-inner mt-6 text-center">
-                    <Calendar className="mx-auto w-15 h-15 text-green-600" />
+                    <Calendar className="mx-auto w-15 h-15 text-secondary" />
                     <h2 className="font-semibold text-xl mt-7">Eventos Médicos</h2>
                     <p className="text-sm text-zinc-600 mt-2">
                        Congresos, simposios y conferencias

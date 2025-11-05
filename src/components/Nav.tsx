@@ -37,8 +37,8 @@ export default function Nav() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-14 flex items-center gap-4">
           <Link href="/" className="font-bold text-xl tracking-tight text-primary">
             <div className="flex items-center">
-              <Heart className="h-6 w-6 text-indigo-600" />
-              <h1 className="text-2xl text-zinc-900 font-semibold">ROMI</h1>
+              <Heart className="h-6 w-6 text-primary" />
+              <h1 className="text-2xl text-foreground font-semibold">ROMI</h1>
             </div>
           </Link>
 
@@ -49,7 +49,7 @@ export default function Nav() {
                 href={l.href}
                 className={`px-3 py-1.5 rounded-full text-sm transition ${
                   isActive(l.href)
-                    ? "bg-cyan-100 text-cyan-700"
+                    ? "bg-primary/15 text-primary"
                     : "text-muted-foreground hover:text-foreground hover:bg-muted"
                 }`}
               >
@@ -63,7 +63,7 @@ export default function Nav() {
           <div className="hidden md:flex items-center gap-2">
             <Link
               href="/chat"
-              className="px-3 py-1.5 rounded-full bg-cyan-500 text-white text-sm hover:bg-cyan-600"
+              className="px-3 py-1.5 rounded-full bg-primary text-primary-foreground text-sm hover:bg-primary/90"
             >
               Chat ROMI
             </Link>
@@ -104,7 +104,7 @@ export default function Nav() {
                   onClick={() => setOpen(false)}
                   className={`px-3 py-2 rounded-md text-sm transition ${
                     isActive(l.href)
-                      ? "bg-cyan-100 text-cyan-700"
+                      ? "bg-primary/15 text-primary"
                       : "text-muted-foreground hover:text-foreground hover:bg-muted"
                   }`}
                 >
@@ -116,7 +116,7 @@ export default function Nav() {
               <Link
                 href="/chat"
                 onClick={() => setOpen(false)}
-                className="px-3 py-2 rounded-md bg-cyan-500 text-white text-sm text-center hover:bg-cyan-600"
+                className="px-3 py-2 rounded-md bg-primary text-primary-foreground text-sm text-center hover:bg-primary/90"
               >
                 Chat ROMI
               </Link>

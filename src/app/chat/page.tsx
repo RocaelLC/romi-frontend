@@ -36,10 +36,10 @@ export default function ChatPage() {
     <main className="min-h-screen bg-white">
       <div className="max-w-3xl mx-auto p-4">
         <h1 className="text-xl font-semibold mb-4">Chat con ROMI</h1>
-        <div className="border rounded-2xl p-3 h-[60vh] overflow-y-auto bg-[#F9FAFB]">
+        <div className="border rounded-2xl p-3 h-[60vh] overflow-y-auto bg-muted">
           {messages.map((m, i) => (
             <div key={i} className={`my-2 flex ${m.from === "user" ? "justify-end" : "justify-start"}`}>
-              <div className={`px-3 py-2 rounded-xl max-w-[80%] ${m.from === "user" ? "bg-[#00B4D8] text-white" : "bg-white border"}`}>
+              <div className={`px-3 py-2 rounded-xl max-w-[80%] ${m.from === "user" ? "bg-primary text-primary-foreground" : "bg-white border"}`}>
                 {m.text}
               </div>
             </div>
@@ -53,7 +53,7 @@ export default function ChatPage() {
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && send()}
           />
-          <button className="px-4 py-2 rounded-xl bg-[#023E8A] text-white" onClick={send}>Enviar</button>
+          <button className="px-4 py-2 rounded-xl bg-primary text-primary-foreground hover:bg-primary/90" onClick={send}>Enviar</button>
         </div>
       </div>
     </main>

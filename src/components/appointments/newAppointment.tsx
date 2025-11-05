@@ -64,36 +64,36 @@ export default function NewAppointment({ doctorId }: { doctorId: string }) {
 
   if (!token)
     return (
-      <div className="max-w-md mx-auto p-6 mt-10 border rounded-xl bg-amber-50 text-amber-800 text-center">
-        <p>Necesitas iniciar sesión para agendar una cita.</p>
-        <Link href={`/Auth/Login?next=/appointments/new?doctorId=${doctorId}`} className="text-indigo-600 underline">
-          Iniciar sesión
+      <div className="max-w-md mx-auto p-6 mt-10 border rounded-xl bg-warning/15 text-warning-foreground text-center">
+        <p>Necesitas iniciar sesin para agendar una cita.</p>
+        <Link href={`/Auth/Login?next=/appointments/new?doctorId=${doctorId}`} className="text-primary underline">
+          Iniciar sesin
         </Link>
       </div>
     );
 
   if (loading) return <div className="animate-pulse h-40 bg-zinc-100 rounded-xl" />;
-  if (error) return <div className="text-red-600 p-4">{error}</div>;
+  if (error) return <div className="text-destructive p-4">{error}</div>;
 
   return (
     <div className="max-w-xl mx-auto mt-10">
       {/* Doctor info card */}
       <div className="rounded-xl border shadow-sm bg-white p-5 flex gap-4 items-center">
-        <div className="h-14 w-14 bg-indigo-100 text-indigo-700 flex items-center justify-center rounded-full">
+        <div className="h-14 w-14 bg-primary/15 text-primary flex items-center justify-center rounded-full">
           <User className="w-7 h-7" />
         </div>
         <div>
           <h2 className="font-semibold text-lg text-zinc-800">{doctor?.name}</h2>
           <p className="text-sm text-zinc-500">{doctor?.specialty}</p>
           <div className="flex items-center text-xs text-zinc-400 gap-1">
-            <Star className="w-3 h-3 text-yellow-500" /> 4.8 / {doctor?.years_exp ?? 10} años exp.
+            <Star className="w-3 h-3 text-accent" /> 4.8 / {doctor?.years_exp ?? 10} aos exp.
           </div>
         </div>
       </div>
 
       {/* Appointment form */}
       <form onSubmit={handleSubmit} className="mt-6 rounded-xl border shadow-sm bg-white p-6 space-y-4">
-        <h3 className="text-indigo-700 font-semibold flex items-center gap-2">
+        <h3 className="text-primary font-semibold flex items-center gap-2">
           <CalendarDays className="w-5 h-5" /> Detalles de la cita
         </h3>
 
@@ -127,13 +127,13 @@ export default function NewAppointment({ doctorId }: { doctorId: string }) {
         </div>
 
         {formMsg && (
-          <p className="text-sm text-amber-700 bg-amber-50 border border-amber-200 rounded-lg p-2">{formMsg}</p>
+          <p className="text-sm text-warning-foreground bg-warning/15 border border-warning rounded-lg p-2">{formMsg}</p>
         )}
 
         <button
           type="submit"
           disabled={sending}
-          className="w-full py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-semibold transition"
+          className="w-full py-3 rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground font-semibold transition"
         >
           {sending ? "Agendando..." : "Confirmar cita"}
         </button>
@@ -141,3 +141,4 @@ export default function NewAppointment({ doctorId }: { doctorId: string }) {
     </div>
   );
 }
+

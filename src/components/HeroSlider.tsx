@@ -56,7 +56,7 @@ export default function HeroSlider() {
 
   return (
     <section className="relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen">
-      <div className="relative isolate overflow-hidden bg-gradient-to-br from-indigo-700 via-violet-600 to-blue-600">
+      <div className="relative isolate overflow-hidden bg-gradient-romi">
         {/* Track */}
         <div
           className="flex transition-transform duration-700 ease-in-out"
@@ -78,7 +78,7 @@ export default function HeroSlider() {
                   {s.ctaText && s.ctaHref && (
                     <a
                       href={s.ctaHref}
-                      className="px-6 py-3 rounded-xl bg-[#00B4D8] text-white transition hover:bg-[#0096c7]"
+                      className="px-6 py-3 rounded-xl bg-primary text-primary-foreground transition hover:bg-primary/90"
                     >
                       {s.ctaText} →
                     </a>
