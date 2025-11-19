@@ -8,7 +8,6 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // Mapea variables -> clases de Tailwind
         background: "var(--background)",
         foreground: "var(--foreground)",
         card: "var(--card)",
@@ -33,7 +32,6 @@ module.exports = {
         border: "var(--border)",
         input: "var(--input)",
         ring: "var(--ring)",
-        // opcionales
         sidebar: "var(--sidebar)",
         "sidebar-foreground": "var(--sidebar-foreground)",
         "sidebar-primary": "var(--sidebar-primary)",

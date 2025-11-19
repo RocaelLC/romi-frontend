@@ -4,8 +4,7 @@ export function setToken(token: string) {
   if (typeof window !== "undefined") {
     localStorage.setItem(TOKEN_KEY, token);
     try {
-      // Set a cookie so Next.js middleware can detect auth state on navigation
-      // Non-HttpOnly cookie (client-set) – for production prefer server-set HttpOnly
+      // Refleja el token en una cookie para que el middleware lo detecte
       document.cookie = `access_token=${encodeURIComponent(token)}; Path=/; SameSite=Lax`;
     } catch {}
   }
@@ -18,7 +17,7 @@ export function clearToken() {
   if (typeof window !== "undefined") {
     localStorage.removeItem(TOKEN_KEY);
     try {
-      // Expire the access_token cookie
+      // Borra la cookie auxiliar del token
       document.cookie = `access_token=; Path=/; Max-Age=0; SameSite=Lax`;
     } catch {}
   }

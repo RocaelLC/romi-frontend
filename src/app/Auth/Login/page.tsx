@@ -5,10 +5,9 @@ import { Suspense } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter, useSearchParams } from "next/navigation";
-import { apiFetch, apiFetchAuth, endpoints } from "@/lib/api"; // ⬅️ importa ambos
+import { apiFetch } from "@/lib/api";
+import { setAuthToken } from "@/lib/authToken";
 import { useAuth } from "@/app/Auth/contexts/AuthContext";
-import { decodeJwt, setToken } from "@/lib/auth";
 
 const schema = z.object({
   email: z.string().email("Correo inválido"),
@@ -16,71 +15,40 @@ const schema = z.object({
   remember: z.boolean().optional(),
 });
 type FormData = z.infer<typeof schema>;
-type JwtClaims = { sub?: string; roles?: string[]; email?: string };
-
-function mapRoleToRoute(roles?: string[] | null): string | null {
-  const up = (roles ?? []).map((r) => String(r).toUpperCase());
-  if (up.includes("DOCTOR"))  return "/doctor/appointments?filter=pending,confirmed";
-  if (up.includes("PATIENT")) return "/doctores";
-  return null;
-}
 
 function LoginInner() {
-  const router = useRouter();
-  const params = useSearchParams();
   const { login } = useAuth();
-
   const { register, handleSubmit, formState: { errors, isSubmitting }, setError } =
     useForm<FormData>({ resolver: zodResolver(schema), defaultValues: { remember: true } });
 
   async function onSubmit(data: FormData) {
     try {
-      console.log("[Login] enviando credenciales...", data.email);
-
-      //  LOGIN con apiFetch (SIN Authorization)
-      const res = await apiFetch<{ access_token: string }>(endpoints.auth.login, {
-        method: "POST",
-        body: JSON.stringify({ email: data.email, password: data.password }),
+      const res = await apiFetch('/auth/login', {
+        body: JSON.stringify({ email: data.email, password: data.password })
       });
+      if (!res?.access_token) throw new Error("No access_token");
 
-      console.log("[Login] token recibido", !!res?.access_token);
-      setToken(res.access_token);
-      login(res.access_token); // marca autenticado en el contexto
+      setAuthToken(res.access_token); // almacenamiento auxiliar
+      login(res.access_token); // actualiza contexto y cookie 'access_token'
 
-      const claims = decodeJwt<JwtClaims>(res.access_token) || {};
-      console.log("[Login] claims:", claims);
+      try {
+        const me = await apiFetch('/auth/me', { method: 'GET' });
+        const roles: string[] = (me?.roles ?? []).map((r: any) => String(r).toUpperCase());
+        const dest = roles.includes('DOCTOR')
+          ? '/dashboard'
+          : roles.includes('PATIENT')
+            ? '/appointments'
+            : '/dashboard';
+        window.location.href = dest;
+        return;
+      } catch {}
 
-      // intenta rol desde el token:
-      let target = mapRoleToRoute(claims.roles ?? null);
-
-      // si no hay roles en el token, consulta /auth/me con apiFetchAuth 
-      if (!target) {
-        try {
-          const me = await apiFetchAuth<{ roles?: string[] }>(endpoints.auth.me);
-          console.log("[Login] /auth/me ->", me);
-          target = mapRoleToRoute(me?.roles ?? null);
-        } catch (meErr) {
-          console.warn("[Login] no se pudo consultar /auth/me", meErr);
-        }
-      }
-
-      const next = params.get("next");
-      const finalTarget = next || target || "/doctor/appointments?filter=pending,confirmed";
-      console.log("[Login] redirigiendo a:", finalTarget);
-      router.replace(finalTarget);
+      window.location.href = '/dashboard'; // fallback
     } catch (err: any) {
-      console.error("[Login] Error al iniciar sesión:", err);
-      const message =
-        err?.data?.message?.[0] ||
-        err?.data?.message ||
-        err?.message ||
-        "Correo o contraseña incorrectos.";
+      const message = err?.message || 'Correo o contraseña incorrectos.';
       setError("root", { message });
     }
   }
-
-
-
 
   return (
     <div className="mx-auto max-w-md py-10">
@@ -98,7 +66,7 @@ function LoginInner() {
 
         <button
           type="submit"
-          className="bg-cyan-700 text-white py-2 rounded mt-2 hover:bg-cyan-800"
+          className=" text-primary  bg-cyan-700 text-white py-2 rounded mt-2 hover:bg-cyan-800 "
           disabled={isSubmitting}
         >
           {isSubmitting ? "Entrando..." : "Entrar"}

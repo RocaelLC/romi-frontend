@@ -18,7 +18,7 @@ export const msalInstance = new PublicClientApplication({
   system: { loggerOptions: { loggerCallback: () => {}, logLevel: LogLevel.Error } },
 });
 
-// 👇 Nueva utilidad: garantiza que initialize() se ejecute exactamente una vez
+// Evita inicializar MSAL más de una vez
 let msalReady: Promise<void> | null = null;
 export async function ensureMsal() {
   if (!msalReady) msalReady = msalInstance.initialize();

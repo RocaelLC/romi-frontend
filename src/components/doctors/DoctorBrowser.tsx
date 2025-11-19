@@ -1,4 +1,3 @@
-// src/components/doctors/DoctorsBrowser.tsx
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
@@ -6,7 +5,6 @@ import DoctorsHero from "./DoctorHero";
 import DoctorCard, { Doctor } from "./DoctorCard";
 import { apiFetchAuth, endpoints } from "@/lib/api";
 
-/* --- utils de normalización (acentos, mayúsculas, plurales simples) --- */
 function normalize(s?: string) {
   if (!s) return "";
   return s
@@ -14,11 +12,11 @@ function normalize(s?: string) {
     .trim()
     .toLowerCase()
     .normalize("NFD")
-    .replace(/\p{Diacritic}/gu, "") // quita acentos
-    .replace(/\s+/g, " "); // colapsa espacios
+    .replace(/\p{Diacritic}/gu, "")
+    .replace(/\s+/g, " ");
 }
 function singular(s: string) {
-  // cardiologos -> cardiologo, cirujanos -> cirujano, etc.
+  // Simplifica plurales básicos al singular
   return s.replace(/(oes|es|s)$/, (m) => (m === "s" ? "" : "o"));
 }
 function nkey(s?: string) {
@@ -30,7 +28,7 @@ export default function DoctorsBrowser() {
   const [error, setError] = useState<string | null>(null);
   const [doctors, setDoctors] = useState<Doctor[]>([]);
   const [query, setQuery] = useState("");
-  const [spec, setSpec] = useState<string>("todas"); // guardamos la versión normalizada
+  const [spec, setSpec] = useState<string>("todas");
 
   useEffect(() => {
     let alive = true;
@@ -68,24 +66,20 @@ export default function DoctorsBrowser() {
     };
   }, []);
 
-  /* --- chips dinámicos desde la data --- */
   const chips = useMemo(() => {
-    const set = new Map<string, string>(); // key normalizada -> label original
+    const labelByKey = new Map<string, string>();
     for (const d of doctors) {
       const key = nkey(d.specialty);
       const label = d.specialty?.trim() || "General";
-      if (key) set.set(key, label);
+      if (key) labelByKey.set(key, label);
     }
-    // orden alfabético por label visible
-    const arr = Array.from(set.entries()).sort((a, b) => a[1].localeCompare(b[1], "es"));
-    // anteponemos "Todas"
-    return [{ key: "todas", label: "Todas las especialidades" }, ...arr.map(([key, label]) => ({ key, label }))];
+    const entries = Array.from(labelByKey.entries()).sort((a, b) => a[1].localeCompare(b[1], "es"));
+    return [{ key: "todas", label: "Todas las especialidades" }, ...entries.map(([key, label]) => ({ key, label }))];
   }, [doctors]);
 
-  /* --- filtrado robusto por especialidad + búsqueda --- */
   const filtered = useMemo(() => {
     const q = normalize(query);
-    const specKey = spec; // ya viene normalizado
+    const specKey = spec;
     return doctors.filter((d) => {
       const dSpecKey = nkey(d.specialty);
 
@@ -100,12 +94,11 @@ export default function DoctorsBrowser() {
     });
   }, [doctors, query, spec]);
 
-  /* --- loading / error --- */
   if (loading) {
     return (
       <>
         <DoctorsHero />
-        <div className="mx-auto max-w-6xl px-4 mt-6 grid gap-4 md:grid-cols-3">
+        <div className="mx-auto max-w-6xl px-4 mt-6 grid gap-4 md:grid-cols-3 ">
           {Array.from({ length: 6 }).map((_, i) => (
             <div key={i} className="h-48 rounded-xl bg-zinc-100 animate-pulse" />
           ))}
@@ -119,27 +112,25 @@ export default function DoctorsBrowser() {
       <>
         <DoctorsHero />
         <div className="mx-auto max-w-6xl px-4">
-          <div className="mt-6 rounded-xl border bg-red-50 text-red-700 p-4">{error}</div>
+          <div className="mt-6 rounded-xl border bg-red-50 text-red-700 p-4 ">{error}</div>
         </div>
       </>
     );
   }
 
-  /* --- UI principal --- */
   return (
     <>
       <DoctorsHero />
 
-      <div className="mx-auto max-w-6xl px-4">
-        {/* Controles */}
-        <div className="mt-6 flex flex-col md:flex-row gap-3 items-stretch md:items-center justify-between">
+      <div className="mx-auto max-w-6xl px-4  mt-6 mb-16">
+        <div className="mt-6 flex flex-col md:flex-row gap-3 items-stretch md:items-center justify-between ">
           <div className="flex gap-2 overflow-x-auto">
             {chips.map((c) => (
               <button
                 key={c.key}
                 onClick={() => setSpec(c.key)}
                 className={`px-3 py-2 rounded-lg text-sm border whitespace-nowrap ${
-                  spec === c.key ? "bg-indigo-600 text-white border-indigo-600" : "bg-white hover:bg-zinc-50"
+                  spec === c.key ? "bg-cyan-600 text-white border-cyan-600" : "bg-white hover:bg-zinc-50"
                 }`}
               >
                 {c.label}
@@ -155,18 +146,15 @@ export default function DoctorsBrowser() {
           />
         </div>
 
-        {/* Contador */}
         <div className="mt-3 text-sm text-zinc-500">
           {filtered.length} especialista{filtered.length === 1 ? "" : "s"} encontrado{filtered.length === 1 ? "" : "s"}
           {spec !== "todas" && (
             <span>
-              {" "}
-              · Filtro: <span className="font-medium text-zinc-700">{chips.find((c) => c.key === spec)?.label}</span>
+              {" "}• Filtro: <span className="font-medium text-zinc-700">{chips.find((c) => c.key === spec)?.label}</span>
             </span>
           )}
         </div>
 
-        {/* Grid */}
         <div className="mt-4 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {filtered.map((d) => (
             <DoctorCard key={d.id} d={d} />

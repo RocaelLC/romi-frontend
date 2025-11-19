@@ -52,7 +52,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setReady(true);
   };
 
-  useEffect(() => { boot(); /* revalida al cambiar de ruta */ }, [pathname]);
+  useEffect(() => {
+    boot();
+  }, [pathname]);
 
   const login = (accessToken: string) => {
     setToken(accessToken);
@@ -64,7 +66,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     if (d?.sub && rolesArr.length > 0) {
       setUser({ id: d.sub, roles: rolesArr as Role[] });
     } else {
-      // token inválido -> limpiar
+      // Descarta tokens inválidos y reinicia el estado
       clearToken();
       setUser(null);
     }
@@ -81,4 +83,3 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 }
 
 export const useAuth = () => useContext(Ctx);
-

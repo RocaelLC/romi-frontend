@@ -1,4 +1,3 @@
-// src/app/doctores/page.tsx
 import DoctorsBrowser from "@/components/doctors/DoctorBrowser";
 
 export const metadata = { title: "ROMI — Doctores" };

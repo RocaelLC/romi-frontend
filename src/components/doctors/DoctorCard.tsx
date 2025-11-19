@@ -23,13 +23,12 @@ export default function DoctorCard({ d }: { d: Doctor }) {
         <div className="flex items-start justify-between">
           <div>
             <h3 className="text-lg font-semibold">{d.name}</h3>
-            <Link href="#" className="text-sm text-blue-700 hover:underline">
+            <Link href="#" className="text-sm text-primary hover:underline">
               {d.specialty}
             </Link>
           </div>
           <span
-            className={`text-xs px-2 py-1 rounded-full ${d.is_available ? "bg-emerald-50 text-emerald-700" : "bg-rose-50 text-rose-700"
-              }`}
+            className={`text-xs px-2 py-1 rounded-full ${d.is_available ? "bg-emerald-50 text-emerald-700" : "bg-rose-50 text-rose-700"}`}
           >
             {d.is_available ? "Disponible" : "Ocupado"}
           </span>
@@ -40,9 +39,7 @@ export default function DoctorCard({ d }: { d: Doctor }) {
             <Star className="w-4 h-4" />
             <span>
               {d.rating?.toFixed(1) ?? "4.8"}{" "}
-              <span className="text-zinc-400">
-                ({d.years_exp ?? 10} años)
-              </span>
+              <span className="text-zinc-400">({d.years_exp ?? 10} años)</span>
             </span>
           </div>
           {d.city && (
@@ -66,19 +63,17 @@ export default function DoctorCard({ d }: { d: Doctor }) {
         </div>
 
         <div className="mt-4 flex items-center justify-between">
-          <div className="text-blue-700 font-bold">
+          <div className="text-cyan-700 font-bold">
             {typeof d.price === "number" ? `$${d.price} MXN` : "$800 MXN"}
             <span className="ml-1 text-xs text-zinc-400 font-normal">por consulta</span>
           </div>
           <div className="flex gap-2">
-
             <Link
               href={`/appointments/new?doctorId=${d.id}`}
-              className="px-6 py-1 rounded bg-indigo-600 text-white text-center hover:bg-indigo-700"
+              className="px-6 py-1 rounded bg-gradient-romi text-white text-center hover:bg-rose-700"
             >
               Agendar Cita
             </Link>
-
             <Link
               href={`/doctores/${d.id}`}
               className="px-3 py-2 rounded-lg border text-sm hover:bg-zinc-50 text-center"
@@ -91,3 +86,4 @@ export default function DoctorCard({ d }: { d: Doctor }) {
     </div>
   );
 }
+

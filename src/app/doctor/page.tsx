@@ -24,7 +24,7 @@ export default function DoctorDashboard() {
         return;
       }
 
-      // Aquí obtienes el doctorId del token decodificado
+      // Toma el doctorId directamente del payload del token
       const { sub: doctorId } = JSON.parse(atob(token.split(".")[1]));
       const res = await apiFetchAuth(endpoints.appointments.byDoctor(doctorId), { method: "GET" }) as { items?: Appointment[] };
       setAppointments(res.items ?? []);

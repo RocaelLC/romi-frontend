@@ -4,18 +4,18 @@
 
 :root {
   /* Core brand */
-  --primary: #D58B88; /* PRIMARY_ROSE */
-  --primary-foreground: #000000; /* BLACK for contrast */
+  --primary: #d58b88; /* PRIMARY_ROSE */
+  --primary-foreground: #363434; /* BLACK for contrast */
 
   --secondary: #E3C094; /* SECONDARY_BEIGE */
-  --secondary-foreground: #000000; /* BLACK */
+  --secondary-foreground: #ffffff; /* BLACK */
 
   --accent: #C7D68F; /* SECONDARY_OLIVE */
-  --accent-foreground: #000000; /* BLACK */
+  --accent-foreground: #ffffff; /* BLACK */
 
   /* Base */
   --background: #FFFFFF;
-  --foreground: #000000;
+  --foreground: #201f1f;
 
   /* Surfaces */
   --card: var(--background);
@@ -59,7 +59,7 @@
 
 /* Gradients */
 .bg-gradient-romi {
-  background: linear-gradient(90deg, #D58B88 0%, #E3C094 100%);
+  background: linear-gradient(90deg, #da4a45f3 0%, #fd7171a8 100%);
 }
 .bg-gradient-romi-variant {
   background: linear-gradient(90deg, #E3C094 0%, #C7D68F 100%);

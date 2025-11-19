@@ -1,6 +1,5 @@
 "use client";
 
-// 1. Importa 'forwardRef' desde React
 import { forwardRef, useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 
@@ -10,9 +9,8 @@ type Props = React.InputHTMLAttributes<HTMLInputElement> & {
   passwordToggle?: boolean;
 };
 
-// 2. Envuelve toda la definición del componente en forwardRef
 const Input = forwardRef<HTMLInputElement, Props>(
-  ({ label, error, passwordToggle, ...rest }, ref) => { // 'ref' ahora es un argumento
+  ({ label, error, passwordToggle, ...rest }, ref) => {
     const [show, setShow] = useState(false);
     const isPassword = rest.type === "password" && passwordToggle;
 
@@ -23,7 +21,6 @@ const Input = forwardRef<HTMLInputElement, Props>(
           <input
             {...rest}
             type={isPassword && show ? "text" : rest.type}
-            // 3. Asigna la 'ref' directamente al elemento <input>
             ref={ref}
             className={`w-full rounded-md border px-3 py-2 outline-none bg-white
               ${error ? "border-red-400" : "border-input focus:ring-2 focus:ring-cyan-500/40"}`}
@@ -45,7 +42,6 @@ const Input = forwardRef<HTMLInputElement, Props>(
   }
 );
 
-// (Opcional pero recomendado) Ayuda a las herramientas de desarrollo de React
 Input.displayName = "Input";
 
 export default Input;

@@ -1,5 +1,4 @@
-// src/components/HeroSlider.tsx
-"use client";
+﻿"use client";
 
 import { useEffect, useRef, useState } from "react";
 
@@ -13,24 +12,24 @@ type Slide = {
 
 const slides: Slide[] = [
   {
-    title: "ROMI - Tu Asistente Médico Inteligente",
+    title: "ROMI - Tu Asistente MÃ©dico Inteligente",
     subtitle: "Inteligencia artificial al servicio de la medicina",
-    description: "Obtén respuestas médicas precisas y actualizadas las 24 horas del día",
+    description: "ObtÃ©n respuestas mÃ©dicas precisas y actualizadas las 24 horas del dÃ­a",
     ctaText: "Probar ROMI",
     ctaHref: "/chat",
   },
   {
     title: "Telemedicina integrada",
-    subtitle: "Agenda, videollamadas y notas clínicas",
-    description: "Todo en un solo lugar, seguro y rápido",
+    subtitle: "Agenda, videollamadas y notas clÃ­nicas",
+    description: "Todo en un solo lugar, seguro y rÃ¡pido",
     ctaText: "Ver funciones",
     ctaHref: "/Presentation",
   },
   {
     title: "Cumplimiento y seguridad",
-    subtitle: "Roles, auditoría y respaldos",
-    description: "Mejores prácticas para proteger a tus pacientes",
-    ctaText: "Conócenos",
+    subtitle: "Roles, auditorÃ­a y respaldos",
+    description: "Mejores prÃ¡cticas para proteger a tus pacientes",
+    ctaText: "ConÃ³cenos",
     ctaHref: "/AboutUs",
   },
 ];
@@ -57,7 +56,6 @@ export default function HeroSlider() {
   return (
     <section className="relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen">
       <div className="relative isolate overflow-hidden bg-gradient-romi">
-        {/* Track */}
         <div
           className="flex transition-transform duration-700 ease-in-out"
           style={{ transform: `translateX(-${i * 100}%)` }}
@@ -80,13 +78,12 @@ export default function HeroSlider() {
                       href={s.ctaHref}
                       className="px-6 py-3 rounded-xl bg-primary text-primary-foreground transition hover:bg-primary/90"
                     >
-                      {s.ctaText} →
+                      {s.ctaText} â†’
                     </a>
                   )}
-                  {/* input opcional al lado del botón */}
                   <input
                     className="hidden md:block w-40 rounded-xl bg-white/90 px-3 py-3 text-sm outline-none placeholder:text-zinc-400"
-                    placeholder="Buscar…"
+                    placeholder="Buscarâ€¦"
                   />
                 </div>
               </div>
@@ -94,7 +91,6 @@ export default function HeroSlider() {
           ))}
         </div>
 
-        {/* Dots */}
         <div className="absolute inset-x-0 bottom-6 flex items-center justify-center gap-2">
           {slides.map((_, idx) => (
             <button

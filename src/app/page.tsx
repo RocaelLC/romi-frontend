@@ -113,8 +113,8 @@ export default function Home() {
                Descubre nuetras soluciones innovadoras diseñadas para transformar la atención médica.
             </p>
             <section className="mt-10 grid md:grid-cols-4 gap-5 max-w-6xl mx-auto ">
-                <div className="rounded-2xl border border-transparent bg-gradient-romi p-6 shadow-inner mt-6 text-center">
-                    <Brain className="mx-auto w-15 h-15 text-foreground" />
+                <div className="rounded-2xl border  p-6 shadow-inner mt-6 text-center">
+                    <Brain className="mx-auto w-15 h-15 text-secondary" />
                     <h2 className="font-semibold text-xl mt-7">Asistente ROMI</h2>
                     <p className="text-sm text-zinc-600 mt-2">
                         IA médica avanzada para consultas y diagnósticos
