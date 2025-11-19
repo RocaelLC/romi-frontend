@@ -26,7 +26,7 @@ const events = [
   },
   {
     tag: "Simposio",
-    image: "/events/event2.jpg",
+    image: "/images/congreso2.jpeg",
     title: "Simposio de Avances en Cardiología",
     date: "25 Febrero 2025",
     time: "10:00 – 16:00",
